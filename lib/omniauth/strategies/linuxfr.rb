@@ -7,8 +7,8 @@ module OmniAuth
 
       option :client_options, {
         :site          =>    BASE_URL,
-        :authorize_url => "#{BASE_URL}/login/oauth/authorize",
-        :token_url     => "#{BASE_URL}/login/oauth/access_token"
+        :authorize_url => "#{BASE_URL}/auth/oauth/authorize",
+        :token_url     => "#{BASE_URL}/auth/oauth/access_token"
       }
 
       def request_phase
@@ -17,21 +17,11 @@ module OmniAuth
 
       uid { raw_info["login"] }
 
-      info do
-        {
-          "login" => raw_info["login"],
-          "email" => raw_info["email"],
-          "name"  => raw_info["name"]
-        }
-      end
-
-      extra do
-        { :raw_info => raw_info }
-      end
+      info { raw_info }
 
       def raw_info
         access_token.options[:mode] = :query
-        @raw_info ||= access_token.get("/user").parsed
+        @raw_info ||= access_token.get("/auth/oauth/user").parsed
       end
     end
   end
