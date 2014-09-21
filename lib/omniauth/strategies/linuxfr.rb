@@ -5,23 +5,20 @@ module OmniAuth
     class LinuxFr < OmniAuth::Strategies::OAuth2
       BASE_URL = "https://linuxfr.org"
 
-      option :client_options, {
-        :site          =>    BASE_URL,
-        :authorize_url => "#{BASE_URL}/auth/oauth/authorize",
-        :token_url     => "#{BASE_URL}/auth/oauth/access_token"
-      }
+      option :name, :linuxfr
 
-      def request_phase
-        super
-      end
+      option :client_options, {
+        :site          => "https://linuxfr.org",
+        :authorize_url => "/api/oauth/authorize",
+        :token_url     => "/api/oauth/token"
+      }
 
       uid { raw_info["login"] }
 
       info { raw_info }
 
       def raw_info
-        access_token.options[:mode] = :query
-        @raw_info ||= access_token.get("/auth/oauth/user").parsed
+        @raw_info ||= access_token.get("/api/v1/me").parsed
       end
     end
   end

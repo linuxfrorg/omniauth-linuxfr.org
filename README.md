@@ -3,7 +3,7 @@ OmniAuth LinuxFr.org
 
 This is the official OmniAuth strategy for authenticating to LinuxFr.org.
 To use it, you'll need to sign up for an OAuth2 Application ID and Secret
-on the [LinuxFr.org Applications Page](https://linuxfr.org/account/applications).
+on the [LinuxFr.org Applications Page](https://linuxfr.org/api/applications).
 
 
 Basic Usage
@@ -20,13 +20,22 @@ require 'omniauth-linuxfr'
 
 use Rack::Session::Cookie
 use OmniAuth::Builder do
-  provider :linuxfr, ENV['LINUXFR_KEY'], ENV['LINUXFR_SECRET']
+  provider :linuxfr,
+    ENV['LINUXFR_KEY'],    # The app identifier
+    ENV['LINUXFR_SECRET']  # The app secret
 end
 
 
 get '/' do
   <<-HTML
     <a href="/auth/linuxfr">Se connecter avec LinuxFr.org</a>
+  HTML
+end
+
+get '/auth/failure' do
+  <<-HTML
+  <h2>Erreur</h2>
+  <pre>#{params['message']}</pre>
   HTML
 end
 

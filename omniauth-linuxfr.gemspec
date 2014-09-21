@@ -5,10 +5,9 @@ Gem::Specification.new do |gem|
   gem.email         = "nono@linuxfr.org"
   gem.description   = %q{Official OmniAuth strategy for LinuxFr.org.}
   gem.summary       = %q{Official OmniAuth strategy for LinuxFr.org.}
-  gem.homepage      = "https://github.com/nono/omniauth-linuxfr.org"
+  gem.homepage      = "https://github.com/linuxfrorg/omniauth-linuxfr.org"
 
   gem.files         = `git ls-files`.split("\n")
-  gem.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
   gem.name          = "omniauth-linuxfr"
   gem.require_paths = ["lib"]
   gem.version       = OmniAuth::LinuxFr::VERSION
